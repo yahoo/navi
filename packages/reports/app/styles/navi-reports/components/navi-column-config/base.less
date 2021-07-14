@@ -52,8 +52,16 @@
 
   &__clone-icon,
   &__filter-icon,
-  &__star-icon {
+  &__star-icon,
+  &__rollup-icon {
     .navi-column-config-icon;
     margin: 0 4px;
+  }
+
+  &__rollup-icon {
+    color: @denali-brand-300;
+    &--active {
+      color: @denali-link-hover;
+    }
   }
 }
