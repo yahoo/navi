@@ -12,16 +12,16 @@ import com.yahoo.elide.core.security.checks.FilterExpressionCheck
 import com.yahoo.elide.core.type.ClassType
 import com.yahoo.elide.core.type.ClassType.STRING_TYPE
 import com.yahoo.elide.core.type.Type
-import com.yahoo.navi.ws.models.beans.HasAuthor
+import com.yahoo.navi.ws.models.beans.HasOwner
 import com.yahoo.navi.ws.models.beans.User
 
-open class DefaultAuthorCheck : FilterExpressionCheck<HasAuthor>() {
+open class DefaultOwnerCheck : FilterExpressionCheck<HasOwner>() {
     companion object {
-        const val IS_AUTHOR = "is author"
+        const val IS_OWNER = "is owner"
     }
     override fun getFilterExpression(entityClass: Type<*>, requestScope: RequestScope): FilterPredicate {
         val userClassType = ClassType.of(User::class.java)
-        val hasAuthorPath = Path.PathElement(entityClass, userClassType, "author")
+        val hasAuthorPath = Path.PathElement(entityClass, userClassType, "owner")
         val userPath = Path.PathElement(userClassType, STRING_TYPE, "id")
         val path = Path(listOf(hasAuthorPath, userPath))
         val value = listOf(requestScope.user.name)

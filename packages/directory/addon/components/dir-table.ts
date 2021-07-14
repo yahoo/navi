@@ -74,14 +74,14 @@ export default class DirTableComponent extends Component<DirTableComponentArgs> 
         breakpoints: ['tablet', 'desktop', 'jumbo'],
       },
       {
-        label: 'AUTHOR',
-        valuePath: 'model.author.id',
-        sortByKey: 'author',
+        label: 'OWNER',
+        valuePath: 'model.owner.id',
+        sortByKey: 'owner',
         hideable: false,
         draggable: false,
         width: '165px',
         classNames: 'dir-table__header-cell',
-        cellClassNames: 'dir-table__cell dir-table__cell--author',
+        cellClassNames: 'dir-table__cell dir-table__cell--owner',
         breakpoints: ['desktop', 'jumbo'],
       },
       {

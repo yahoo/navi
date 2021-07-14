@@ -13,12 +13,12 @@ module('Integration | Component | navi-search-bar', function (hooks) {
   hooks.beforeEach(async function () {
     await this.owner.lookup('service:navi-metadata').loadMetadata();
     const store = this.owner.lookup('service:store'),
-      mockAuthor = store.createRecord('user', { id: 'ciela' });
+      mockOwner = store.createRecord('user', { id: 'ciela' });
     this.owner.register(
       'service:user',
       class extends Service {
         getUser() {
-          return mockAuthor;
+          return mockOwner;
         }
       }
     );

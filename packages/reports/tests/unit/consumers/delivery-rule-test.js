@@ -86,7 +86,7 @@ module('Unit | Consumer | delivery-rule', function (hooks) {
 
     return run(() => {
       return Store.findRecord('report', 1).then((report) => {
-        return report.author.then((owner) => {
+        return report.owner.then((owner) => {
           let newRule = Store.createRecord('delivery-rule', {
             deliveryType: 'report',
             format: { type: 'csv' },

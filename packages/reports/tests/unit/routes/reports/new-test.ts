@@ -8,7 +8,7 @@ const SERIALIZED_MODEL =
   'N4IgJghgLhIFygJZniAjAVhAGhNKATogEYCuUApgM7yhSJQA2FqAEgJ4GnMAEAchQDuNXAQoBHUtSi0QAM0SNKBGnADaoAPYAHCgWiaCqYhRm4AbhEZTVakAAU0AERwgAxqQJiAdjIC6uAoUjChwIN6mgoYA1gB0kJQAKogAtiy42hD6acqqoADm+ojeqJDsIAC+uFDsuqj0aU6pFN5UiJolFQHumtYprfAa7sioTgD6AMLmjPna9gCiAEyuVogQqt7cjIGIwaHhkTHx0BTJaa6Z2aZ6eSCFEMWlEOVVIDV1YQ0UTWmt7Z3dGDEZioCJQKIEaKuKiGKC2bqMVIMeCbRjbEBiSTSABqN3+qEWsQADK4EhAAMqaTxuFhhYhZMAAeQilQsiCopFWAC9oPiEG9arS3hBgekQOY8R14ItcDkIGTZG5eqR+gBBKCEEjkai0Cp615iRi8jpUAAWiG0twg5FNhlkCv57yFpCoN1cIzC3gg5kQYxdekqeuqgtQYm0sJoeqAA';
 
 const NEW_MODEL = {
-  author: 'navi_user',
+  owner: 'navi_user',
   createdOn: null,
   request: {
     columns: [],
@@ -37,12 +37,12 @@ module('Unit | Route | reports/new', function (hooks) {
   hooks.beforeEach(async function () {
     await this.owner.lookup('service:navi-metadata').loadMetadata();
 
-    let mockAuthor = this.owner.lookup('service:store').createRecord('user', { id: 'navi_user' });
+    let mockOwner = this.owner.lookup('service:store').createRecord('user', { id: 'navi_user' });
 
     this.owner.register(
       'service:user',
       class extends Service {
-        getUser = () => mockAuthor;
+        getUser = () => mockOwner;
       }
     );
   });

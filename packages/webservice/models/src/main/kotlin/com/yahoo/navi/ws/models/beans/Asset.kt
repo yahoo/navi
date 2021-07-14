@@ -4,6 +4,8 @@
  */
 package com.yahoo.navi.ws.models.beans
 
+import com.yahoo.elide.annotation.Exclude
+import com.yahoo.elide.annotation.Include
 import com.yahoo.elide.annotation.UpdatePermission
 import com.yahoo.navi.ws.models.checks.DefaultNobodyCheck.Companion.NOBODY
 import org.hibernate.annotations.CreationTimestamp
@@ -23,18 +25,19 @@ import javax.persistence.Temporal
 import javax.persistence.TemporalType
 
 @Entity
+@Include
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "ASSET_TYPE")
-abstract class Asset : HasAuthor {
+abstract class Asset : HasOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int = 0
 
     var title: String? = null
 
-    @JoinColumn(name = "author")
+    @JoinColumn(name = "owner")
     @ManyToOne
-    override var author: User? = null
+    override var owner: User? = null
 
     @CreationTimestamp
     @Column(columnDefinition = "timestamp default current_timestamp")
@@ -47,4 +50,8 @@ abstract class Asset : HasAuthor {
     @Temporal(TemporalType.TIMESTAMP)
     @UpdatePermission(expression = NOBODY)
     var updatedOn: Date? = null
+
+    @Exclude
+    @Column(name = "ASSET_TYPE", insertable = false, updatable = false)
+    var assetType: String? = null
 }

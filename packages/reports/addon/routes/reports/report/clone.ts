@@ -37,13 +37,13 @@ export default class ReportsReportCloneRoute extends Route {
    * @returns copy of report
    */
   private cloneReport(report: ReportLike) {
-    const author = this.user.getUser();
+    const owner = this.user.getUser();
     const clonedReportModel = report.clone();
 
     // Making sure the title does not exceed the 150 char limit
     Object.assign(clonedReportModel, {
       title: `Copy of ${clonedReportModel.title}`.substring(0, 150),
-      author,
+      owner,
     });
 
     return clonedReportModel;

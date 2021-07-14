@@ -4,6 +4,6 @@
  */
 package com.yahoo.navi.ws.models.beans
 
-interface HasAuthor {
-    var author: User?
+interface HasOwner {
+    var owner: User?
 }

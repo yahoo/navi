@@ -16,9 +16,9 @@ class RequestV2Test : IntegrationTest() {
     private val USER = "user"
     private var reqStr = String()
     private var visualStr = String()
-    private var author = { user: String ->
+    private var owner = { user: String ->
         """
-        |"author": {
+        |"owner": {
         |   "data": {
         |        "type": "users",
         |        "id": "$user"
@@ -132,7 +132,7 @@ class RequestV2Test : IntegrationTest() {
                             "visualization": $visualStr
                         },
                         "relationships": {
-                            ${author(USER)}
+                            ${owner(USER)}
                         }
                     }
                 }
@@ -231,7 +231,7 @@ class RequestV2Test : IntegrationTest() {
                             "visualization": $visualStr
                         },
                         "relationships": {
-                            ${author(USER)}
+                            ${owner(USER)}
                         }
                     }
                 }
@@ -270,7 +270,7 @@ class RequestV2Test : IntegrationTest() {
                             "presentation": {}
                         },
                         "relationships": {
-                            ${author(USER)}
+                            ${owner(USER)}
                         }
                     }
                 }

@@ -71,7 +71,7 @@ module('Integration | Component | print report view', function (hooks) {
         title: 'RequestV2 testing report',
         createdOn: '2015-04-01 00:00:00',
         updatedOn: '2015-04-01 00:00:00',
-        authorId: 'navi_user',
+        ownerId: 'navi_user',
         deliveryRuleIds: [],
         visualization: {
           type: 'line-chart',

@@ -35,12 +35,12 @@
               createdOn timestamp default current_timestamp,
               title varchar(255),
               updatedOn timestamp default current_timestamp,
-              author varchar(255),
+              owner varchar(255),
               PRIMARY KEY (id),
-              FOREIGN KEY (author) references User(id)
+              FOREIGN KEY (owner) references User(id)
           );
 
-          CREATE TABLE custom_reports (
+          CREATE TABLE Report (
               id integer not null,
               request MEDIUMTEXT,
               visualization MEDIUMTEXT,

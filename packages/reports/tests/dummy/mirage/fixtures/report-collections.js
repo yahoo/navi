@@ -9,7 +9,7 @@ export default [
   {
     id: 1,
     title: 'Report Collection 1',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     createdOn: '2017-01-01 00:00:00',
     updatedOn: '2017-01-01 00:00:00',
     reportIds: [1, 3],
@@ -17,7 +17,7 @@ export default [
   {
     id: 2,
     title: 'Report Collection 2',
-    authorId: 'ciela',
+    ownerId: 'ciela',
     createdOn: '2017-01-01 00:00:00',
     updatedOn: '2017-01-01 00:00:00',
     reportIds: [2, 4],

@@ -5,7 +5,7 @@
 package com.yahoo.navi.ws.checks
 
 import com.yahoo.elide.annotation.SecurityCheck
-import com.yahoo.navi.ws.models.checks.DefaultDashboardAuthorCheck
+import com.yahoo.navi.ws.models.checks.DefaultDashboardOwnerCheck
 
-@SecurityCheck(DefaultDashboardAuthorCheck.IS_DASHBOARD_AUTHOR)
-class DashboardAuthorCheck : DefaultDashboardAuthorCheck()
+@SecurityCheck(DefaultDashboardOwnerCheck.IS_DASHBOARD_OWNER)
+class DashboardOwnerCheck : DefaultDashboardOwnerCheck()

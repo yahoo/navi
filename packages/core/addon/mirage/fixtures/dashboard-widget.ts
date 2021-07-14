@@ -2,7 +2,7 @@ export default [
   {
     id: 1,
     dashboardId: 1,
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     title: 'Mobile DAU Goal',
     visualization: {
       type: 'goal-gauge',
@@ -38,7 +38,7 @@ export default [
   {
     id: 2,
     dashboardId: 1,
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     title: 'Mobile DAU Graph',
     visualization: {
       type: 'line-chart',
@@ -81,7 +81,7 @@ export default [
   {
     id: 3,
     dashboardId: 1,
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     title: 'Mobile DAU Table',
     visualization: {
       type: 'table',
@@ -136,7 +136,7 @@ export default [
   {
     id: 4,
     dashboardId: 2,
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     title: 'Clicks',
     visualization: {
       type: 'line-chart',
@@ -179,7 +179,7 @@ export default [
   {
     id: 5,
     dashboardId: 2,
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     title: 'Last Week By OS',
     visualization: {
       type: 'table',
@@ -234,7 +234,7 @@ export default [
   {
     id: 6,
     dashboardId: 4,
-    authorId: 'ciela',
+    ownerId: 'ciela',
     title: 'Clicks',
     visualization: {
       type: 'line-chart',
@@ -277,7 +277,7 @@ export default [
   {
     id: 7,
     dashboardId: 6,
-    authorId: 'ciela',
+    ownerId: 'ciela',
     title: 'Sale Contribution Value',
     visualization: {
       type: 'line-chart',
@@ -321,7 +321,7 @@ export default [
   {
     id: 8,
     dashboardId: 6,
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     title: 'Mobile DAU Goal',
     visualization: {
       type: 'goal-gauge',
@@ -357,7 +357,7 @@ export default [
   {
     id: 9,
     dashboardId: 6,
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     title: 'Mobile DAU Graph',
     visualization: {
       type: 'line-chart',
@@ -401,7 +401,7 @@ export default [
   {
     id: 10,
     dashboardId: 7,
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     title: 'Datasource error',
     visualization: {
       type: 'line-chart',
@@ -468,7 +468,7 @@ export default [
     title: 'Mobile DAU Goal',
     dashboardId: 7,
     id: 11,
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     visualization: {
       type: 'goal-gauge',
       version: 2,

@@ -54,8 +54,8 @@ export default class DashboardsNewRoute extends Route {
    * @returns route model
    */
   async _newModel(title = 'Untitled Dashboard') {
-    const author = await this.user.findOrRegister();
-    const dashboard = this.store.createRecord('dashboard', { author, title });
+    const owner = await this.user.findOrRegister();
+    const dashboard = this.store.createRecord('dashboard', { owner, title });
     return dashboard.save();
   }
 

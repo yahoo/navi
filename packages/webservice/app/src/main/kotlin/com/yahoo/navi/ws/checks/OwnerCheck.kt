@@ -5,7 +5,7 @@
 package com.yahoo.navi.ws.checks
 
 import com.yahoo.elide.annotation.SecurityCheck
-import com.yahoo.navi.ws.models.checks.DefaultAuthorCheck
+import com.yahoo.navi.ws.models.checks.DefaultOwnerCheck
 
-@SecurityCheck(DefaultAuthorCheck.IS_AUTHOR)
-class AuthorCheck : DefaultAuthorCheck()
+@SecurityCheck(DefaultOwnerCheck.IS_OWNER)
+class OwnerCheck : DefaultOwnerCheck()

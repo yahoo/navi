@@ -33,11 +33,11 @@ module('Acceptance | dir sidebar', function (hooks) {
       .dom('.dir-sidebar .is-active')
       .hasText('Favorites', 'The active sidebar filter link now corresponds to `favorites` filter query param');
 
-    await visit('/directory/my-data?filter=favorites&sortBy=author&sortDir=asc');
+    await visit('/directory/my-data?filter=favorites&sortBy=owner&sortDir=asc');
     await click('.dir-sidebar__link[data-title="Other Data"] a');
     assert.equal(
       currentURL(),
-      '/directory/other-data?sortBy=author&sortDir=asc',
+      '/directory/other-data?sortBy=owner&sortDir=asc',
       'Clicking another directory removes the favorites filter but keeps sorting'
     );
   });

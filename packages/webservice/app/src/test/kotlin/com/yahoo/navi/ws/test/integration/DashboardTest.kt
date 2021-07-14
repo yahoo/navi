@@ -22,9 +22,9 @@ class DashboardTest : IntegrationTest() {
     private val USER3 = "user3"
 
     private var presentation = String()
-    private var author = { user: String ->
+    private var owner = { user: String ->
         """
-        |"author": {
+        |"owner": {
         |   "data": {
         |        "type": "users",
         |        "id": "$user"
@@ -79,7 +79,7 @@ class DashboardTest : IntegrationTest() {
                             "presentation": $presentation
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }
@@ -176,7 +176,7 @@ class DashboardTest : IntegrationTest() {
                             "title": "A Dashboard"
                         },
                         "relationships": {
-                            ${author(USER2)}
+                            ${owner(USER2)}
                         }
                     }
                 }
@@ -204,7 +204,7 @@ class DashboardTest : IntegrationTest() {
                             "presentation": $presentation
                         },
                         "relationships": {
-                            ${author(USER1)},
+                            ${owner(USER1)},
                             "editors": {
                                 "data": {
                                     "type": "users",
@@ -342,7 +342,7 @@ class DashboardTest : IntegrationTest() {
                             "presentation": $presentation
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }
@@ -468,7 +468,7 @@ class DashboardTest : IntegrationTest() {
                             "presentation": $presentation
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }

@@ -37,11 +37,11 @@ export default class DashboardWidget extends Model.extend(hasVisualization, Vali
   requests!: FragmentArray<RequestFragment>;
 
   /**
-   * Author retrived from dashboard
+   * Owner retrived from dashboard
    */
-  @computed('dashboard.author')
-  get author() {
-    return this.dashboard.author;
+  @computed('dashboard.owner')
+  get owner() {
+    return this.dashboard.owner;
   }
 
   /**

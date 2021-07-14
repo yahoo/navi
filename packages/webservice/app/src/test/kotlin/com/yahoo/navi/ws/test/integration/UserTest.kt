@@ -168,7 +168,7 @@ class UserTest : IntegrationTest() {
                             }
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser1"
@@ -269,7 +269,7 @@ class UserTest : IntegrationTest() {
                             "title": "User 1's Report"
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data":{
                                     "type": "users",
                                     "id": "$naviUser1"
@@ -299,7 +299,7 @@ class UserTest : IntegrationTest() {
                         "title": "User 2's Report"
                     },
                     "relationships": {
-                        "author": {
+                        "owner": {
                             "data":{
                                 "type": "users",
                                 "id": "$naviUser2"
@@ -470,7 +470,7 @@ class UserTest : IntegrationTest() {
                             "title": "User 1's Dashboard"
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser1"
@@ -500,7 +500,7 @@ class UserTest : IntegrationTest() {
                             "title": "User 2's Dashboard"
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser2"
@@ -530,7 +530,7 @@ class UserTest : IntegrationTest() {
                             "title": "User 2's Dashboard 2"
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser2"
@@ -567,7 +567,7 @@ class UserTest : IntegrationTest() {
                         "type": "dashboards",
                         "id": "2",
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser2"
@@ -601,7 +601,7 @@ class UserTest : IntegrationTest() {
                         "type": "dashboards",
                         "id": "3",
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser2"
@@ -630,7 +630,7 @@ class UserTest : IntegrationTest() {
             .assertThat()
             .statusCode(HttpStatus.SC_NO_CONTENT)
 
-        // dashboards that can be edited and authored are shown for user 1 and user 3
+        // dashboards that can be edited and ownered are shown for user 1 and user 3
         given()
             .header("User", naviUser1)
             .When()
@@ -649,7 +649,7 @@ class UserTest : IntegrationTest() {
             .body("data.relationships.editingDashboards.data.id", hasItems("3"))
             .body("data.relationships.dashboards.data.id", empty<Any>())
 
-        // user 2 , author of dashboard 3 remove editor access for user 3
+        // user 2 , owner of dashboard 3 remove editor access for user 3
         given()
             .header("User", naviUser2)
             .contentType("application/vnd.api+json")
@@ -660,7 +660,7 @@ class UserTest : IntegrationTest() {
                         "type": "dashboards",
                         "id": "3",
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser2"
@@ -712,7 +712,7 @@ class UserTest : IntegrationTest() {
                             "title": "User 1's Dashboard"
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser1"
@@ -742,7 +742,7 @@ class UserTest : IntegrationTest() {
                             "title": "User 2's Dashboard"
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser2"
@@ -906,7 +906,7 @@ class UserTest : IntegrationTest() {
                             "title": "A Report 1"
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser1"
@@ -935,7 +935,7 @@ class UserTest : IntegrationTest() {
                             "title": "A Report 2"
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser1"
@@ -964,7 +964,7 @@ class UserTest : IntegrationTest() {
                             "title": "User 1's Dashboard"
                         },
                         "relationships": {
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$naviUser1"

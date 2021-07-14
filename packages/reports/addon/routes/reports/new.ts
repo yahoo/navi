@@ -53,7 +53,7 @@ export default class ReportsNewRoute extends Route {
    * Returns a new model for this route
    */
   protected async newModel(dataSource?: string): Promise<ReportLike> {
-    const author = this.user.getUser();
+    const owner = this.user.getUser();
     const defaultVisualization = this.naviVisualizations.defaultVisualization();
     if (dataSource !== undefined) {
       try {
@@ -63,7 +63,7 @@ export default class ReportsNewRoute extends Route {
       }
     }
     const report = this.store.createRecord('report', {
-      author,
+      owner,
       request: this.store.createFragment('bard-request-v2/request', {
         dataSource,
       }),

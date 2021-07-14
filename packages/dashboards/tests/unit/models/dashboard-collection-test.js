@@ -29,7 +29,7 @@ module('Unit | Model | dashboard collection', function (hooks) {
           rec.toJSON(),
           {
             title: 'Collection 1',
-            author: 'navi_user',
+            owner: 'navi_user',
             dashboards: ['1', '3'],
             createdOn: '2016-01-01 00:00:00.000',
             updatedOn: '2016-01-01 00:00:00.000',

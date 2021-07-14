@@ -21,7 +21,7 @@ module('Unit | Route | dashboards/dashboard/view', function (hooks) {
   test('_addFiltersFromQueryParams', async function (assert) {
     assert.expect(7);
 
-    let author = await Store.findRecord('user', 'navi_user'),
+    let owner = await Store.findRecord('user', 'navi_user'),
       genderFilter = Store.createFragment('bard-request-v2/fragments/filter', {
         type: 'dimension',
         field: 'gender',
@@ -44,7 +44,7 @@ module('Unit | Route | dashboards/dashboard/view', function (hooks) {
       }),
       dashboard = Store.createRecord('dashboard', {
         title: 'Test Dashboard',
-        author,
+        owner,
       });
     assert.notOk(Route.get('filters'), 'No filter query params are set');
     assert.equal(dashboard.get('filters.length'), 0, 'Dashboard has no filters');

@@ -10,7 +10,7 @@ import type DashboardModel from 'navi-core/models/dashboard';
 
 export default class DashboardCollection extends Model {
   @belongsTo('user', { async: true })
-  declare author: AsyncBelongsTo<UserModel>;
+  declare owner: AsyncBelongsTo<UserModel>;
   @attr('string')
   declare title: string;
   @attr('moment')

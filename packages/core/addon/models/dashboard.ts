@@ -26,7 +26,7 @@ const Validations = buildValidations({
 
 export default class DashboardModel extends DeliverableItem.extend(Validations) {
   @belongsTo('user', { async: true })
-  author!: AsyncBelongsTo<UserModel>;
+  owner!: AsyncBelongsTo<UserModel>;
 
   @attr('string')
   title!: string;
@@ -50,7 +50,7 @@ export default class DashboardModel extends DeliverableItem.extend(Validations) 
    * user is the dashboard owner
    */
   get isUserOwner() {
-    return this.author.get('id') === config.navi.user;
+    return this.owner.get('id') === config.navi.user;
   }
 
   /**
@@ -66,7 +66,7 @@ export default class DashboardModel extends DeliverableItem.extend(Validations) 
   }
 
   /**
-   * is favorite of author
+   * is favorite of owner
    */
   get isFavorite() {
     const user = this.user.getUser();
@@ -82,7 +82,7 @@ export default class DashboardModel extends DeliverableItem.extend(Validations) 
   clone() {
     const user = this.user.getUser();
     const clonedDashboard = Object.assign(this.toJSON(), {
-      author: user,
+      owner: user,
       widgets: [],
       filters: this.filters.map((filter) => {
         return this.store.createFragment('bard-request-v2/fragments/filter', {

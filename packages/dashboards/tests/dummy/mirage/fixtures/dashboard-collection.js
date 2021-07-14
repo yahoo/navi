@@ -2,7 +2,7 @@ export default [
   {
     id: 1,
     title: 'Collection 1',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     createdOn: '2016-01-01 00:00:00',
     updatedOn: '2016-01-01 00:00:00',
     dashboardIds: [1, 3],
@@ -10,7 +10,7 @@ export default [
   {
     id: 2,
     title: 'Collection 2',
-    authorId: 'ciela',
+    ownerId: 'ciela',
     createdOn: '2016-01-01 00:00:00',
     updatedOn: '2016-01-01 00:00:00',
     dashboardIds: [2, 4],
@@ -18,7 +18,7 @@ export default [
   {
     id: 3,
     title: 'Collection 3',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     createdOn: '2018-01-01 00:00:00',
     updatedOn: '2018-01-01 00:00:00',
     dashboardIds: [1],

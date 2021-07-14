@@ -14,12 +14,12 @@ module('Unit | Service | navi-asset-search-provider', function (hooks) {
     await this.owner.lookup('service:navi-metadata').loadMetadata();
     service = this.owner.lookup('service:navi-search/navi-asset-search-provider');
     const store = this.owner.lookup('service:store'),
-      mockAuthor = store.createRecord('user', { id: 'ciela' });
+      mockOwner = store.createRecord('user', { id: 'ciela' });
     this.owner.register(
       'service:user',
       class extends Service {
         getUser() {
-          return mockAuthor;
+          return mockOwner;
         }
       }
     );
@@ -31,34 +31,34 @@ module('Unit | Service | navi-asset-search-provider', function (hooks) {
     assert.deepEqual(
       service._constructSearchQuery('Hyrule', 'report'),
       {
-        filter: { reports: "(title=='*Hyrule*',request=='*Hyrule*');author.id==ciela" },
+        filter: { reports: "(title=='*Hyrule*',request=='*Hyrule*');owner.id==ciela" },
         page: { limit: 10 },
       },
-      'Constructs the correct report query for the api with both filter parameters and author.'
+      'Constructs the correct report query for the api with both filter parameters and owner.'
     );
     assert.deepEqual(
       service._constructSearchQuery(null, 'report'),
       {
-        filter: { reports: 'author.id==ciela' },
+        filter: { reports: 'owner.id==ciela' },
         page: { limit: 10 },
       },
-      'Constructs the correct report query for the api with author.'
+      'Constructs the correct report query for the api with owner.'
     );
     assert.deepEqual(
       service._constructSearchQuery('Hyrule', 'dashboard'),
       {
-        filter: { dashboards: "(title=='*Hyrule*');author.id==ciela" },
+        filter: { dashboards: "(title=='*Hyrule*');owner.id==ciela" },
         page: { limit: 10 },
       },
-      'Constructs the correct dashboard query for the api with both filter parameters and author.'
+      'Constructs the correct dashboard query for the api with both filter parameters and owner.'
     );
     assert.deepEqual(
       service._constructSearchQuery(null, 'dashboard'),
       {
-        filter: { dashboards: 'author.id==ciela' },
+        filter: { dashboards: 'owner.id==ciela' },
         page: { limit: 10 },
       },
-      'Constructs the correct dashboard query for the api with author.'
+      'Constructs the correct dashboard query for the api with owner.'
     );
   });
 
@@ -74,7 +74,7 @@ module('Unit | Service | navi-asset-search-provider', function (hooks) {
       'The correct reports and dashboards are found'
     );
     results.data.forEach(async function (result) {
-      let author = await result.author;
+      let owner = await result.owner;
       // Only Report objects have a request property.
       let hasRequest = !!result?.request;
       assert.ok(result.title.includes('Revenue'), 'The service returns a report that includes the requested title.');
@@ -82,7 +82,7 @@ module('Unit | Service | navi-asset-search-provider', function (hooks) {
         hasRequest ? JSON.stringify(result.request.serialize()).includes('revenue') : true,
         'The service returns reports that include the search query in the request'
       );
-      assert.ok(author.id.includes('ciela'), 'The service returns a report from the requested user.');
+      assert.ok(owner.id.includes('ciela'), 'The service returns a report from the requested user.');
     });
   });
 

@@ -20,12 +20,12 @@ export default class DashboardsDashboardWidgetsNewRoute extends ReportsNewRoute 
    * Returns a new model for this route
    */
   protected async newModel() {
-    const author = await this.user.findOrRegister();
+    const owner = await this.user.findOrRegister();
     const defaultVisualization = this.naviVisualizations.defaultVisualization();
     const dashboard = this.modelFor('dashboards.dashboard');
 
     const widget = this.store.createRecord('dashboard-widget', {
-      author,
+      owner,
       dashboard,
       requests: A([this.store.createFragment('bard-request-v2/request', {})]),
       visualization: { type: defaultVisualization },

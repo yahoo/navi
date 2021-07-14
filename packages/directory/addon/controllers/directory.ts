@@ -67,7 +67,7 @@ export default class DirectoryController extends Controller {
    */
   get sortKey() {
     const { sortBy } = this;
-    return sortBy === 'author' ? 'author.id' : sortBy;
+    return sortBy === 'owner' ? 'owner.id' : sortBy;
   }
 
   /**
