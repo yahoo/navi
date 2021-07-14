@@ -23,7 +23,7 @@ module('Unit | Model | dashboard', function (hooks) {
       assert.deepEqual(
         JSON.parse(JSON.stringify(rec.toJSON())), //to remove undefined props
         {
-          author: 'navi_user',
+          owner: 'navi_user',
           createdOn: '2016-02-01 00:00:00.000',
           filters: [
             {
@@ -103,9 +103,9 @@ module('Unit | Model | dashboard', function (hooks) {
     await run(async () => {
       const userModel = await Store.findRecord('user', 'navi_user');
       const dashboard = await Store.findRecord('dashboard', 2);
-      const author = await dashboard.get('author');
+      const owner = await dashboard.get('owner');
 
-      assert.deepEqual(author, userModel, 'Dashboard author property contains user model');
+      assert.deepEqual(owner, userModel, 'Dashboard owner property contains user model');
 
       assert.ok(dashboard.get('isUserOwner'), 'Dashboard is owned by current user');
 
@@ -137,7 +137,7 @@ module('Unit | Model | dashboard', function (hooks) {
       const clonedModel = model.clone().toJSON();
       const expectedModel = model.toJSON();
 
-      expectedModel.author = 'navi_user';
+      expectedModel.owner = 'navi_user';
 
       // setting attributes to null, which are not necessary to check in clone object
       expectedModel.createdOn = null;

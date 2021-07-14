@@ -8,7 +8,7 @@ import com.yahoo.elide.annotation.DeletePermission
 import com.yahoo.elide.annotation.Include
 import com.yahoo.elide.annotation.LifeCycleHookBinding
 import com.yahoo.elide.annotation.UpdatePermission
-import com.yahoo.navi.ws.models.checks.DefaultDashboardAuthorCheck.Companion.IS_DASHBOARD_AUTHOR
+import com.yahoo.navi.ws.models.checks.DefaultDashboardOwnerCheck.Companion.IS_DASHBOARD_OWNER
 import com.yahoo.navi.ws.models.checks.DefaultNobodyCheck.Companion.NOBODY
 import com.yahoo.navi.ws.models.checks.DefaultSameUserCheck.Companion.IS_SAME_USER
 import com.yahoo.navi.ws.models.hooks.UserValidationHook
@@ -54,7 +54,7 @@ class User : HasRoles {
     @UpdatePermission(expression = NOBODY)
     var updatedOn: Date? = null
 
-    @OneToMany(mappedBy = "author", targetEntity = Asset::class)
+    @OneToMany(mappedBy = "owner", targetEntity = Asset::class)
     @Where(clause = "ASSET_TYPE = 'Report'")
     var reports: MutableSet<Report> = mutableSetOf()
 
@@ -66,11 +66,11 @@ class User : HasRoles {
     )
     var favoriteReports: MutableSet<Report> = mutableSetOf()
 
-    @OneToMany(mappedBy = "author", targetEntity = Asset::class)
+    @OneToMany(mappedBy = "owner", targetEntity = Asset::class)
     @Where(clause = "ASSET_TYPE = 'Dashboard'")
     var dashboards: MutableSet<Dashboard> = mutableSetOf()
 
-    @UpdatePermission(expression = IS_DASHBOARD_AUTHOR)
+    @UpdatePermission(expression = IS_DASHBOARD_OWNER)
     @ManyToMany
     @JoinTable(
         name = "map_editor_to_dashboard_collections",

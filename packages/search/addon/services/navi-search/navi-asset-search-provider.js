@@ -48,22 +48,22 @@ export default class NaviAssetSearchProviderService extends NaviBaseSearchProvid
 
   /**
    * @method _constructSearchQuery – Constructs the query filter parameters adhering to the RSQL standard
-   * The query is built to return results from the specified author. The user's query is matched against multiple fields,
-   * therefore an 'or' is used between the different parameters and finally there's an 'and' with the author.
+   * The query is built to return results from the specified owner. The user's query is matched against multiple fields,
+   * therefore an 'or' is used between the different parameters and finally there's an 'and' with the owner.
    * @private
    * @param {String} userQuery
    * @param {String} type
    * @returns {Object} search query object
    */
   _constructSearchQuery(userQuery, type) {
-    const author = this.user.getUser().id;
+    const owner = this.user.getUser().id;
     const pluralType = pluralize(type);
     let query = { filter: { [pluralType]: '' }, page: { limit: this.resultThreshold } };
 
     const paramsFilterString = this._parseParamsFilterString(userQuery, type);
-    const authorFilterString = author ? (paramsFilterString ? `;author.id==${author}` : `author.id==${author}`) : '';
+    const ownerFilterString = owner ? (paramsFilterString ? `;owner.id==${owner}` : `owner.id==${owner}`) : '';
 
-    query.filter[pluralType] = `${paramsFilterString}${authorFilterString}`;
+    query.filter[pluralType] = `${paramsFilterString}${ownerFilterString}`;
 
     return query;
   }

@@ -18,21 +18,21 @@ module('Integration | Component | dir table', function (hooks) {
   test('table populates from items correctly', async function (assert) {
     assert.expect(4);
 
-    const author = Store.createRecord('user', { id: 'navi_user' });
+    const owner = Store.createRecord('user', { id: 'navi_user' });
     const items = [
       Store.createRecord('report', {
         title: 'Report 1',
-        author,
+        owner,
         updatedOn: '2020-01-01 00:00:00',
       }),
       Store.createRecord('dashboard', {
         title: 'Dashboard 1',
-        author,
+        owner,
         updatedOn: '2020-01-02 00:00:00',
       }),
       Store.createRecord('report', {
         title: 'Report 2',
-        author,
+        owner,
         updatedOn: '2020-01-03 00:00:00',
       }),
     ];
@@ -49,13 +49,13 @@ module('Integration | Component | dir table', function (hooks) {
 
     assert.deepEqual(
       findAll('th').map((elm) => elm.innerText.trim()),
-      ['NAME', '', 'AUTHOR', 'LAST UPDATED DATE'],
+      ['NAME', '', 'OWNER', 'LAST UPDATED DATE'],
       'The correct columns are generated for the table'
     );
 
     assert.ok(
-      findAll('.dir-table__cell--author').every((elm) => elm.innerText.trim() === 'navi_user'),
-      "The author's name is displayed correctly for each row"
+      findAll('.dir-table__cell--owner').every((elm) => elm.innerText.trim() === 'navi_user'),
+      "The owner's name is displayed correctly for each row"
     );
 
     assert.deepEqual(
@@ -85,7 +85,7 @@ module('Integration | Component | dir table', function (hooks) {
     assert.deepEqual(
       th.map((elm) => elm.className.includes('is-sortable')),
       [true, false, true, true],
-      'Only title, author and last update columns are sortable'
+      'Only title, owner and last update columns are sortable'
     );
 
     assert.deepEqual(
@@ -122,12 +122,12 @@ module('Integration | Component | dir table', function (hooks) {
 
     // sorting an ascending column
 
-    set(this, 'sortBy', 'author');
+    set(this, 'sortBy', 'owner');
     set(this, 'sortDir', 'asc');
     set(this, 'onColumnClick', (sort) => {
       assert.deepEqual(
         sort,
-        { sortBy: 'author', sortDir: 'desc' },
+        { sortBy: 'owner', sortDir: 'desc' },
         'onColumnClick is called with desc when clicking an ascending-sorted column'
       );
     });
@@ -148,7 +148,7 @@ module('Integration | Component | dir table', function (hooks) {
     set(this, 'onColumnClick', (sort) => {
       assert.deepEqual(
         sort,
-        { sortBy: 'author', sortDir: 'asc' },
+        { sortBy: 'owner', sortDir: 'asc' },
         'onColumnClick is called with asc when clicking a descending-sorted column'
       );
     });
@@ -169,7 +169,7 @@ module('Integration | Component | dir table', function (hooks) {
     set(this, 'onColumnClick', (sort) => {
       assert.deepEqual(
         sort,
-        { sortBy: 'author', sortDir: 'asc' },
+        { sortBy: 'owner', sortDir: 'asc' },
         'onColumnClick is called with asc when clicking an unsorted column with sortDescFirst=undefined'
       );
     });

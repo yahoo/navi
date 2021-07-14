@@ -23,9 +23,9 @@ class DashboardWidgetTest : IntegrationTest() {
     private var requests = String()
     private var visual1 = String()
     private var visual2 = String()
-    private var author = { user: String ->
+    private var owner = { user: String ->
         """
-        |"author": {
+        |"owner": {
         |   "data": {
         |        "type": "users",
         |        "id": "$user"
@@ -159,7 +159,7 @@ class DashboardWidgetTest : IntegrationTest() {
                             "presentation": $presentation
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }
@@ -266,7 +266,7 @@ class DashboardWidgetTest : IntegrationTest() {
             .assertThat()
             .body("data.id", not(hasItems("1")))
             .body("data.id", hasItems("2"))
-            .body("data.relationships.author.data.id", hasItems("user1"))
+            .body("data.relationships.owner.data.id", hasItems("user1"))
     }
 
     @Test
@@ -455,7 +455,7 @@ class DashboardWidgetTest : IntegrationTest() {
     }
 
     @Test
-    fun widgetSetAuthor() {
+    fun widgetSetOwner() {
         given()
             .header("User", USER1)
             .contentType("application/vnd.api+json")
@@ -476,7 +476,7 @@ class DashboardWidgetTest : IntegrationTest() {
                                     "id": "1"
                                 }
                             },
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$USER2"
@@ -493,7 +493,7 @@ class DashboardWidgetTest : IntegrationTest() {
             .assertThat()
             .statusCode(HttpStatus.SC_BAD_REQUEST)
 
-        // posting with the parent dashboard's author is OK
+        // posting with the parent dashboard's owner is OK
         given()
             .header("User", USER1)
             .contentType("application/vnd.api+json")
@@ -514,7 +514,7 @@ class DashboardWidgetTest : IntegrationTest() {
                                     "id": "1"
                                 }
                             },
-                            "author": {
+                            "owner": {
                                 "data": {
                                     "type": "users",
                                     "id": "$USER1"

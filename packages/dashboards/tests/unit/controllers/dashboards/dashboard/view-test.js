@@ -31,10 +31,10 @@ module('Unit | Controller | dashboards/dashboard/view', function (hooks) {
         values: ['MacOS'],
         source: 'bardOne',
       }),
-      author = await Store.findRecord('user', 'navi_user'),
+      owner = await Store.findRecord('user', 'navi_user'),
       dashboard = Store.createRecord('dashboard', {
         title: 'Test Dashboard',
-        author,
+        owner,
       });
 
     dashboard.get('filters').pushObject(osFilter);
@@ -90,10 +90,10 @@ module('Unit | Controller | dashboards/dashboard/view', function (hooks) {
         values: ['MacOS'],
         source: 'bardOne',
       }),
-      author = await Store.findRecord('user', 'navi_user'),
+      owner = await Store.findRecord('user', 'navi_user'),
       dashboard = Store.createRecord('dashboard', {
         title: 'Test Dashboard',
-        author,
+        owner,
       });
 
     dashboard.get('filters').pushObject(osFilter);
@@ -121,10 +121,10 @@ module('Unit | Controller | dashboards/dashboard/view', function (hooks) {
 
   test('addFilter', async function (assert) {
     assert.expect(2);
-    let author = await Store.findRecord('user', 'navi_user'),
+    let owner = await Store.findRecord('user', 'navi_user'),
       dashboard = Store.createRecord('dashboard', {
         title: 'Test Dashboard',
-        author,
+        owner,
       });
 
     controller.transitionToRoute = async (destination, transition) => {
@@ -166,10 +166,10 @@ module('Unit | Controller | dashboards/dashboard/view', function (hooks) {
   test('Add filter from other datasource', async function (assert) {
     assert.expect(2);
     await MetadataService.loadMetadata({ dataSourceName: 'bardTwo' });
-    let author = await Store.findRecord('user', 'navi_user'),
+    let owner = await Store.findRecord('user', 'navi_user'),
       dashboard = Store.createRecord('dashboard', {
         title: 'Test Dashboard',
-        author,
+        owner,
       });
 
     controller.transitionToRoute = async (destination, transition) => {
@@ -221,10 +221,10 @@ module('Unit | Controller | dashboards/dashboard/view', function (hooks) {
       values: [],
       source: 'bardTwo',
     });
-    let author = await Store.findRecord('user', 'navi_user'),
+    let owner = await Store.findRecord('user', 'navi_user'),
       dashboard = Store.createRecord('dashboard', {
         title: 'Test Dashboard',
-        author,
+        owner,
       });
 
     dashboard.filters.pushObject(containerFilter);

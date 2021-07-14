@@ -12,9 +12,9 @@ import com.yahoo.elide.annotation.UpdatePermission
 import com.yahoo.elide.core.exceptions.InvalidValueException
 import com.yahoo.navi.ws.models.beans.fragments.DashboardWidgetVisualization
 import com.yahoo.navi.ws.models.beans.fragments.Request
-import com.yahoo.navi.ws.models.checks.DefaultAuthorCheck.Companion.IS_AUTHOR
 import com.yahoo.navi.ws.models.checks.DefaultEditorsCheck.Companion.IS_EDITOR
 import com.yahoo.navi.ws.models.checks.DefaultNobodyCheck.Companion.NOBODY
+import com.yahoo.navi.ws.models.checks.DefaultOwnerCheck.Companion.IS_OWNER
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.Parameter
 import org.hibernate.annotations.Type
@@ -33,23 +33,23 @@ import javax.persistence.Transient
 
 @Entity
 @Include(rootLevel = false, name = "dashboardWidgets")
-@CreatePermission(expression = "$IS_AUTHOR OR $IS_EDITOR")
-@UpdatePermission(expression = "$IS_AUTHOR OR $IS_EDITOR")
-@DeletePermission(expression = "$IS_AUTHOR OR $IS_EDITOR")
-class DashboardWidget : HasAuthor, HasEditors {
+@CreatePermission(expression = "$IS_OWNER OR $IS_EDITOR")
+@UpdatePermission(expression = "$IS_OWNER OR $IS_EDITOR")
+@DeletePermission(expression = "$IS_OWNER OR $IS_EDITOR")
+class DashboardWidget : HasOwner, HasEditors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int = 0
 
     var title: String? = null
 
-    override var author: User?
+    override var owner: User?
         @Transient
         @ManyToOne
         @ComputedRelationship
-        get() = this.dashboard!!.author
+        get() = this.dashboard!!.owner
         set(_) {
-            throw InvalidValueException("Cannot edit author directly through a widget bean. The owning dashboard contains the author")
+            throw InvalidValueException("Cannot edit owner directly through a widget bean. The owning dashboard contains the owner")
         }
 
     override var editors: MutableSet<User>

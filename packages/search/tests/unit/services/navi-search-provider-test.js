@@ -14,11 +14,11 @@ module('Unit | Service | navi-search-provider', function (hooks) {
     await this.owner.lookup('service:navi-metadata').loadMetadata();
     service = this.owner.lookup('service:navi-search-provider');
     const store = this.owner.lookup('service:store'),
-      mockAuthor = store.createRecord('user', { id: 'ciela' });
+      mockOwner = store.createRecord('user', { id: 'ciela' });
     this.owner.register(
       'service:user',
       class extends Service {
-        getUser = () => mockAuthor;
+        getUser = () => mockOwner;
       }
     );
   });

@@ -40,7 +40,7 @@ module('Unit | Route | dashboards/dashboard/widgets/new', function (hooks) {
       modelFor: () =>
         Store.createRecord('dashboard', {
           id: 'dashboard1',
-          author: 'navi_user',
+          owner: 'navi_user',
         }),
 
       router: {
@@ -61,9 +61,9 @@ module('Unit | Route | dashboards/dashboard/widgets/new', function (hooks) {
         assert.deepEqual(model.toJSON(), NEW_MODEL, 'A new widget model is returned');
 
         assert.equal(
-          model.get('author.id'),
+          model.get('owner.id'),
           'navi_user',
-          'the author of the widget is set using the author from the dashboard'
+          'the owner of the widget is set using the owner from the dashboard'
         );
       });
     });
@@ -74,9 +74,9 @@ module('Unit | Route | dashboards/dashboard/widgets/new', function (hooks) {
     const model = await Route.newModel();
     assert.deepEqual(model.toJSON(), NEW_MODEL, 'A new widget model is returned');
     assert.equal(
-      model.get('author.id'),
+      model.get('owner.id'),
       'navi_user',
-      'the author of the widget is set using the author from the dashboard'
+      'the owner of the widget is set using the owner from the dashboard'
     );
   });
 });

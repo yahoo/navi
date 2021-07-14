@@ -34,7 +34,7 @@ module('Integration | Component | report actions/add to dashboard', function (ho
     set(this, 'report', {
       id: 1,
       title: 'Buzz Blob',
-      author: 'navi_user',
+      owner: 'navi_user',
     });
 
     set(

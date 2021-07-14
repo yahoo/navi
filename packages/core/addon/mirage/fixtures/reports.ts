@@ -10,7 +10,7 @@ export default [
     title: 'Hyrule News',
     createdOn: '2015-01-01 00:00:00',
     updatedOn: '2015-01-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'line-chart',
@@ -64,7 +64,7 @@ export default [
     title: 'Hyrule Ad&Nav Clicks',
     createdOn: '2016-04-01 11:00:00',
     updatedOn: '2016-04-01 11:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',
@@ -129,7 +129,7 @@ export default [
     title: 'Report 123',
     createdOn: '2015-01-01 02:00:00',
     updatedOn: '2015-01-01 02:00:00',
-    authorId: 'ciela',
+    ownerId: 'ciela',
     deliveryRuleIds: [1],
     visualization: {
       type: 'table',
@@ -178,7 +178,7 @@ export default [
     title: 'Report 12',
     createdOn: '2015-01-03 00:00:00',
     updatedOn: '2015-01-03 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [2],
     visualization: {
       type: 'line-chart',
@@ -220,7 +220,7 @@ export default [
     title: 'Null Visualization',
     createdOn: '2015-07-01 00:00:00',
     updatedOn: '2015-07-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',
@@ -269,7 +269,7 @@ export default [
     title: 'Invalid report',
     createdOn: '2015-04-01 00:00:00',
     updatedOn: '2015-04-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: null,
     request: {
@@ -287,7 +287,7 @@ export default [
     title: 'Revenue report 1',
     createdOn: '2015-01-01 00:00:00',
     updatedOn: '2015-01-01 00:00:00',
-    authorId: 'ciela',
+    ownerId: 'ciela',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',
@@ -337,7 +337,7 @@ export default [
     title: 'Revenue report 2',
     createdOn: '2015-03-01 00:00:00',
     updatedOn: '2015-03-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',
@@ -407,7 +407,7 @@ export default [
     title: 'Report with unknown table',
     createdOn: '2015-02-01 00:00:00',
     updatedOn: '2015-02-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',
@@ -457,7 +457,7 @@ export default [
     title: 'Report with missing intervals',
     createdOn: '2018-01-01 00:00:00',
     updatedOn: '2018-01-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'line-chart',
@@ -499,7 +499,7 @@ export default [
     title: 'old report without params',
     createdOn: '2015-01-01 00:00:00',
     updatedOn: '2015-01-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',
@@ -556,7 +556,7 @@ export default [
     title: 'Report for different datasource',
     createdOn: '2020-01-01 00:00:00',
     updatedOn: '2020-01-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',
@@ -645,7 +645,7 @@ export default [
     title: 'RequestV2 testing report',
     createdOn: '2015-04-01 00:00:00',
     updatedOn: '2015-04-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',
@@ -704,7 +704,7 @@ export default [
     title: 'RequestV2 multi-param testing report',
     createdOn: '2015-04-01 00:00:00',
     updatedOn: '2015-04-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',
@@ -763,10 +763,10 @@ export default [
   },
   {
     id: 15,
-    title: 'Unauthorized',
+    title: 'Unownerized',
     createdOn: '2015-04-01 00:00:00',
     updatedOn: '2015-04-01 00:00:00',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     deliveryRuleIds: [],
     visualization: {
       type: 'table',

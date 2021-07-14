@@ -7,7 +7,7 @@ import User from 'navi-core/models/user';
 
 export function initialize(/* application */) {
   User.reopen({
-    dashboards: hasMany('dashboard', { async: true, inverse: 'author' }),
+    dashboards: hasMany('dashboard', { async: true, inverse: 'owner' }),
     favoriteDashboards: hasMany('dashboard', { async: true, inverse: null }),
   });
 }

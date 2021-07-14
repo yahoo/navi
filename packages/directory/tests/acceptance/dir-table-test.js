@@ -87,13 +87,13 @@ module('Acceptance | dir table', function (hooks) {
 
     assert.equal(
       currentURL(),
-      '/directory/my-data?filter=favorites&sortBy=author&sortDir=asc',
+      '/directory/my-data?filter=favorites&sortBy=owner&sortDir=asc',
       'The sortBy and sortDir are added as query params'
     );
   });
 
   test('dir-table-filter', async function (assert) {
-    await visit('/directory/my-data?sortBy=author&sortDir=asc');
+    await visit('/directory/my-data?sortBy=owner&sortDir=asc');
 
     assert.dom('.dir-table-filter select').hasValue('All', 'Initially the selected type filter is `all`');
 
@@ -102,7 +102,7 @@ module('Acceptance | dir table', function (hooks) {
     assert.dom('.dir-table-filter select').hasValue('Reports', 'On click the selected option is set');
     assert.equal(
       currentURL(),
-      '/directory/my-data?sortBy=author&sortDir=asc&type=reports',
+      '/directory/my-data?sortBy=owner&sortDir=asc&type=reports',
       'The selected type is set as a query param while keeping other query params'
     );
 

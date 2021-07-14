@@ -7,7 +7,7 @@ import { Response } from 'ember-cli-mirage';
 let Route;
 
 const CLONED_MODEL = {
-  author: 'navi_user',
+  owner: 'navi_user',
   createdOn: null,
   presentation: {
     columns: 12,
@@ -62,7 +62,7 @@ module('Unit | Route | dashboards/dashboard/clone', function (hooks) {
 
     assert.equal(expectedModel.title, CLONED_MODEL.title, 'Expected Models title is correct');
 
-    assert.equal(expectedModel.author, CLONED_MODEL.author, 'Expected Models Author is correct');
+    assert.equal(expectedModel.owner, CLONED_MODEL.owner, 'Expected Models Owner is correct');
 
     assert.notEqual(
       widgetIdInExpectedModel,

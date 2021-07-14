@@ -8,13 +8,13 @@
 import Response from 'ember-cli-mirage/response';
 
 /**
- * @method getFilterParams – Parse filter parameters in the form of "(title==*H*,request==*Revenue*)";author==*ramvish*
+ * @method getFilterParams – Parse filter parameters in the form of "(title==*H*,request==*Revenue*)";owner==*ramvish*
  * to a list of all the OR parameters, ie., [H, Revenue]
  * @param {String} queryFilter
  * @returns {Array} Filter parameters
  */
 export function getFilterParams(queryFilter) {
-  if (queryFilter && queryFilter.includes('author') && queryFilter.includes(';')) {
+  if (queryFilter && queryFilter.includes('owner') && queryFilter.includes(';')) {
     queryFilter = queryFilter.split(';')[0];
     return queryFilter
       .replace(/[()*']/g, '')
@@ -25,13 +25,13 @@ export function getFilterParams(queryFilter) {
 }
 
 /**
- * @method getQueryAuthor – Parse filter parameters in the form of "(title==*H*,request==*Revenue*)";author==*ramvish*
- * to get the author, ie., ramvish
+ * @method getQueryOwner – Parse filter parameters in the form of "(title==*H*,request==*Revenue*)";owner==*ramvish*
+ * to get the owner, ie., ramvish
  * @param {String} queryFilter
- * @returns Author
+ * @returns Owner
  */
-export function getQueryAuthor(queryFilter) {
-  if (queryFilter && queryFilter.includes('author')) {
+export function getQueryOwner(queryFilter) {
+  if (queryFilter && queryFilter.includes('owner')) {
     if (queryFilter.includes('(')) {
       queryFilter = queryFilter.split(';')[1];
     }
@@ -50,19 +50,19 @@ export function filterModel(model, queryFilter) {
   let modelObject;
   try {
     let filterParameters = getFilterParams(queryFilter);
-    let author = getQueryAuthor(queryFilter);
-    if (filterParameters == null && author == null) {
+    let owner = getQueryOwner(queryFilter);
+    if (filterParameters == null && owner == null) {
       throw new Error('No search parameters');
     }
     modelObject = model.where((report) => {
-      // Author can be optional, ie., not included in the query, but filterparameters are always included.
+      // Owner can be optional, ie., not included in the query, but filterparameters are always included.
       const matchesFilterParameterIfExists = filterParameters
         ? filterParameters.some((filterParameter) =>
             JSON.stringify(report[filterParameter[0]]).match(new RegExp(filterParameter[1], 'i'))
           )
         : false;
-      const matchesAuthorIfExists = author ? report.authorId.match(new RegExp(author, 'i')) : true;
-      return matchesFilterParameterIfExists && matchesAuthorIfExists;
+      const matchesOwnerIfExists = owner ? report.ownerId.match(new RegExp(owner, 'i')) : true;
+      return matchesFilterParameterIfExists && matchesOwnerIfExists;
     });
   } catch (error) {
     modelObject = new Response(

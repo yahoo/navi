@@ -2,7 +2,7 @@ export default [
   {
     id: 1,
     title: 'Tumblr Goals Dashboard',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     dashboardWidgetIds: [1, 2, 3],
     createdOn: '2016-01-01 00:00:00',
     updatedOn: '2016-01-01 00:00:00',
@@ -20,7 +20,7 @@ export default [
   {
     id: 2,
     title: 'Dashboard 2',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     dashboardWidgetIds: [4, 5],
     createdOn: '2016-02-01 00:00:00',
     updatedOn: '2016-02-01 00:00:00',
@@ -63,7 +63,7 @@ export default [
   {
     id: 3,
     title: 'Dashboard 3',
-    authorId: 'ciela',
+    ownerId: 'ciela',
     dashboardWidgetIds: [],
     createdOn: '2016-01-03 00:00:00',
     updatedOn: '2016-01-03 00:00:00',
@@ -77,7 +77,7 @@ export default [
   {
     id: 4,
     title: 'Revenue Dashboard',
-    authorId: 'ciela',
+    ownerId: 'ciela',
     dashboardWidgetIds: [6],
     createdOn: '2016-01-01 00:00:00',
     updatedOn: '2016-01-01 00:00:00',
@@ -99,7 +99,7 @@ export default [
   {
     id: 5,
     title: 'Empty Dashboard',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     dashboardWidgetIds: [],
     createdOn: '2016-01-01 03:00:00',
     updatedOn: '2016-01-01 03:00:00',
@@ -113,7 +113,7 @@ export default [
   {
     id: 6,
     title: 'Multi Source Dashboard',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     dashboardWidgetIds: [7, 8, 9],
     createdOn: '2016-01-01 03:00:00',
     updatedOn: '2016-01-01 03:00:00',
@@ -135,7 +135,7 @@ export default [
   {
     id: 7,
     title: 'Datasource Error Dashboard',
-    authorId: 'navi_user',
+    ownerId: 'navi_user',
     createdOn: '2016-01-01 03:00:00',
     updatedOn: '2016-01-01 03:00:00',
     deliveryRuleIds: [],

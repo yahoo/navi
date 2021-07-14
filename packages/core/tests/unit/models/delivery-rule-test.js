@@ -54,7 +54,7 @@ module('Unit | Model | delivery rule', function (hooks) {
       const deliveryRule = await Store.findRecord('deliveryRule', 1);
       const owner = await deliveryRule.get('owner');
 
-      assert.equal(owner, userModel, 'deliveryRule author property contains user model');
+      assert.equal(owner, userModel, 'deliveryRule owner property contains user model');
     });
   });
 

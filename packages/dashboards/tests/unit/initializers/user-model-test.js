@@ -21,7 +21,7 @@ module('Unit | Initializer | user', function (hooks) {
 
       Store.createRecord('dashboard', {
         title: 'Time and Courage',
-        author: user,
+        owner: user,
       });
 
       assert.equal(user.get('dashboards.length'), 1, 'One dashboard is linked to the user');

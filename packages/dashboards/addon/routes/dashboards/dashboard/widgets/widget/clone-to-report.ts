@@ -46,7 +46,7 @@ export default class DashboardsDashboardWidgetsWidgetCloneToReportRoute extends 
 
     return this.store.createRecord('report', {
       title: `Copy of ${widget.title}`.substring(0, 150),
-      author: this.user.getUser(),
+      owner: this.user.getUser(),
       request: widget.request?.clone(),
       visualization: this.store.createFragment(clonedWidget.visualization.type, clonedWidget.visualization),
     });

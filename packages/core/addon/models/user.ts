@@ -11,7 +11,7 @@ import Role from './role';
 import DS from 'ember-data';
 
 export default class UserModel extends Model {
-  @hasMany('report', { async: true, inverse: 'author' })
+  @hasMany('report', { async: true, inverse: 'owner' })
   reports!: DS.PromiseManyArray<ReportModel>;
 
   @hasMany('report', { async: true, inverse: null })
@@ -20,7 +20,7 @@ export default class UserModel extends Model {
   @hasMany('delivery-rule', { async: true, inverse: 'owner' })
   deliveryRules!: DS.PromiseManyArray<DeliveryRuleModel>;
 
-  @hasMany('dashboard', { async: true, inverse: 'author' })
+  @hasMany('dashboard', { async: true, inverse: 'owner' })
   dashboards!: DS.PromiseManyArray<DashboardModel>;
 
   @hasMany('dashboard', { async: true, inverse: null })

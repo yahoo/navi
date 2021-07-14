@@ -3,19 +3,19 @@ import Service from '@ember/service';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-let Store, MockAuthor;
+let Store, MockOwner;
 
 module('Unit | Route | dashboards/dashboard/widgets/widget/clone-to-report', function (hooks) {
   setupTest(hooks);
 
   hooks.beforeEach(function () {
     Store = this.owner.lookup('service:store');
-    MockAuthor = Store.createRecord('user', { id: 'Gannon' });
+    MockOwner = Store.createRecord('user', { id: 'Gannon' });
 
     this.owner.register(
       'service:user',
       Service.extend({
-        getUser: () => MockAuthor,
+        getUser: () => MockOwner,
       })
     );
   });
@@ -26,7 +26,7 @@ module('Unit | Route | dashboards/dashboard/widgets/widget/clone-to-report', fun
     return run(() => {
       let widget = {
           title: 'Twilight Princess',
-          author: 'Wolf Link',
+          owner: 'Wolf Link',
           request: {
             clone: () => null,
           },
@@ -50,7 +50,7 @@ module('Unit | Route | dashboards/dashboard/widgets/widget/clone-to-report', fun
         'Created report title is "Copy of" + original title'
       );
 
-      assert.equal(report.get('author.id'), MockAuthor.id, 'Current user is the author of the created report');
+      assert.equal(report.get('owner.id'), MockOwner.id, 'Current user is the owner of the created report');
     });
   });
 
@@ -61,7 +61,7 @@ module('Unit | Route | dashboards/dashboard/widgets/widget/clone-to-report', fun
       const route = this.owner.lookup('route:dashboards/dashboard/widgets/widget/clone-to-report'),
         widget = {
           title: 'Twilight Princess',
-          author: 'Wolf Link',
+          owner: 'Wolf Link',
           request: {
             clone: () => null,
           },
@@ -80,7 +80,7 @@ module('Unit | Route | dashboards/dashboard/widgets/widget/clone-to-report', fun
         'Created report title is "Copy of" + original title'
       );
 
-      assert.equal(clonedReport.get('author.id'), MockAuthor.id, 'Current user is the author of the created report');
+      assert.equal(clonedReport.get('owner.id'), MockOwner.id, 'Current user is the owner of the created report');
     });
   });
 });

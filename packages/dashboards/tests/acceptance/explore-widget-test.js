@@ -245,11 +245,11 @@ module('Acceptance | Exploring Widgets', function (hooks) {
   test('Delete widget', async function (assert) {
     assert.expect(5);
 
-    /* == Not author == */
+    /* == Not owner == */
     await visit('/dashboards/3/widgets/4/view');
     assert.notOk(
       !!$('.navi-report-widget__action:contains(Delete)').length,
-      'Delete action is not available if user is not the author'
+      'Delete action is not available if user is not the owner'
     );
 
     /* == Delete success == */

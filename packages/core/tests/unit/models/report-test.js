@@ -94,7 +94,7 @@ const ExpectedRequest = {
         },
       },
       relationships: {
-        author: {
+        owner: {
           data: {
             type: 'users',
             id: 'navi_user',
@@ -177,7 +177,7 @@ module('Unit | Model | report', function (hooks) {
       const user = await Store.findRecord('user', 'navi_user');
       const report = {
         title: 'New Report',
-        author: user,
+        owner: user,
         request: null,
       };
 
@@ -216,10 +216,10 @@ module('Unit | Model | report', function (hooks) {
       await Store.findRecord('user', 'navi_user');
 
       const report3 = await Store.findRecord('report', 3);
-      assert.notOk(report3.get('isOwner'), 'isOwner returns false when author does not match user');
+      assert.notOk(report3.get('isOwner'), 'isOwner returns false when owner does not match user');
 
       const report1 = await Store.findRecord('report', 1);
-      assert.ok(report1.get('isOwner'), 'isOwner returns true when user is the author of the report');
+      assert.ok(report1.get('isOwner'), 'isOwner returns true when user is the owner of the report');
     });
   });
 
@@ -242,9 +242,9 @@ module('Unit | Model | report', function (hooks) {
     assert.expect(3);
 
     await run(async () => {
-      const author = await Store.findRecord('user', 'navi_user');
+      const owner = await Store.findRecord('user', 'navi_user');
       const report = Store.createRecord('report', {
-        author,
+        owner,
         request: null,
       });
 

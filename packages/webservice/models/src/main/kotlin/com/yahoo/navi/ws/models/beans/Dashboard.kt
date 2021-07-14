@@ -10,8 +10,8 @@ import com.yahoo.elide.annotation.Include
 import com.yahoo.elide.annotation.UpdatePermission
 import com.yahoo.navi.ws.models.beans.fragments.DashboardPresentation
 import com.yahoo.navi.ws.models.beans.fragments.request.Filter
-import com.yahoo.navi.ws.models.checks.DefaultAuthorCheck.Companion.IS_AUTHOR
 import com.yahoo.navi.ws.models.checks.DefaultEditorsCheck.Companion.IS_EDITOR
+import com.yahoo.navi.ws.models.checks.DefaultOwnerCheck.Companion.IS_OWNER
 import org.hibernate.annotations.Parameter
 import org.hibernate.annotations.Type
 import javax.persistence.CascadeType
@@ -23,11 +23,11 @@ import javax.persistence.OneToMany
 
 @Entity
 @Include(name = "dashboards")
-@DiscriminatorValue("Dashboard")
-@CreatePermission(expression = IS_AUTHOR)
-@UpdatePermission(expression = "$IS_AUTHOR OR $IS_EDITOR")
-@DeletePermission(expression = IS_AUTHOR)
-class Dashboard : Asset(), HasAuthor, HasEditors {
+@DiscriminatorValue("dashboard")
+@CreatePermission(expression = IS_OWNER)
+@UpdatePermission(expression = "$IS_OWNER OR $IS_EDITOR")
+@DeletePermission(expression = IS_OWNER)
+class Dashboard : Asset(), HasOwner, HasEditors {
 
     @ManyToMany(mappedBy = "editingDashboards")
     override var editors: MutableSet<User> = mutableSetOf()

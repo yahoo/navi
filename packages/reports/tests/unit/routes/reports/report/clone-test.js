@@ -9,19 +9,19 @@ module('Unit | Route | reports/report/clone', function (hooks) {
     assert.expect(2);
 
     const store = this.owner.lookup('service:store');
-    const mockAuthor = store.createRecord('user', { id: 'Gannon' });
+    const mockOwner = store.createRecord('user', { id: 'Gannon' });
 
     this.owner.register(
       'service:user',
       class MockUserService extends Service {
-        getUser = () => mockAuthor;
+        getUser = () => mockOwner;
       }
     );
 
     const route = this.owner.lookup('route:reports/report/clone');
     const originalReport = {
       title: 'Twilight Princess',
-      author: 'Wolf Link',
+      owner: 'Wolf Link',
       request: {},
       clone() {
         return Object.assign({}, this);
@@ -34,6 +34,6 @@ module('Unit | Route | reports/report/clone', function (hooks) {
       `Copy of ${originalReport.title}`,
       'Cloned report title is "Copy of" + original title'
     );
-    assert.equal(clonedReport.author, mockAuthor, 'Current user is the author of the cloned report');
+    assert.equal(clonedReport.owner, mockOwner, 'Current user is the owner of the cloned report');
   });
 });

@@ -22,7 +22,7 @@
         {{#if @config.actions}}
           <th class="align left navi-collection__actions"></th>
         {{/if}}
-        <th class="align left">Author</th>
+        <th class="align left">Owner</th>
         <th class="align left">Last Updated</th>
       </tr>
     </thead>
@@ -60,7 +60,7 @@
                 </LazyRender>
               </td>
             {{/if}}
-            <td class="align left">{{item.author.id}}</td>
+            <td class="align left">{{item.owner.id}}</td>
             <td class="align left">
               {{moment-format
                 item.updatedOn

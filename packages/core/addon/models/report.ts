@@ -34,7 +34,7 @@ export default class ReportModel extends DeliverableItem.extend(hasVisualization
   updatedOn!: Moment;
 
   @belongsTo('user', { async: true })
-  author!: DS.PromiseObject<UserModel>;
+  owner!: DS.PromiseObject<UserModel>;
 
   @fragment('bard-request-v2/request', { defaultValue: () => ({}) })
   request!: RequestFragment;
@@ -44,11 +44,11 @@ export default class ReportModel extends DeliverableItem.extend(hasVisualization
    */
   get isOwner() {
     const userId = this.user.getUser()?.id;
-    return this.author.get('id') === userId;
+    return this.owner.get('id') === userId;
   }
 
   /**
-   * @property {Boolean} isFavorite - is favorite of author
+   * @property {Boolean} isFavorite - is favorite of owner
    */
   get isFavorite() {
     const user = this.user.getUser();

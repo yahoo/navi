@@ -871,12 +871,12 @@ module('Acceptance | Navi Report', function (hooks) {
 
     assert.deepEqual(reportNames, ['Hyrule Ad&Nav Clicks', 'Report 12'], 'Deleted report is removed from list');
 
-    // /* == Not author == */
+    // /* == Not owner == */
     await visit('/reports/3/view');
 
     assert.notOk(
       !!$('.navi-report__action:contains(Delete)').length,
-      'Delete action is not available if user is not the author'
+      'Delete action is not available if user is not the owner'
     );
   });
 

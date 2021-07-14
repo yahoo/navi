@@ -6,7 +6,7 @@ import { setupMirage } from 'ember-cli-mirage/test-support';
 let Route;
 
 const NEW_MODEL = {
-  author: 'navi_user',
+  owner: 'navi_user',
   createdOn: null,
   filters: [],
   presentation: {

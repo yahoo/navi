@@ -87,13 +87,13 @@ export default class ReportsReportSaveAsRoute extends Route {
    * @returns copy of report
    */
   _saveAsReport(report: ReportLike, title: string) {
-    const author = this.user.getUser();
+    const owner = this.user.getUser();
     const clonedReportModel = report.clone();
 
-    // Setting the title and author of report
+    // Setting the title and owner of report
     Object.assign(clonedReportModel, {
       title: title.substring(0, 150),
-      author,
+      owner,
     });
     return clonedReportModel;
   }

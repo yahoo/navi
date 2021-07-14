@@ -53,7 +53,7 @@ module('Unit | Service | compression', function (hooks) {
     const report = Store.createRecord('report', {
       id: '1234',
       title: 'Hello World',
-      author: user,
+      owner: user,
       request,
     });
     const compressedString = await Service.compressModel(report);
@@ -76,7 +76,7 @@ module('Unit | Service | compression', function (hooks) {
       'The decompressed model contains the same properties as the original'
     );
 
-    const decompressedUser = await decompressedModel.get('author');
+    const decompressedUser = await decompressedModel.get('owner');
     assert.equal(decompressedUser, user, 'The decompressed model maintains the original relationships');
 
     assert.equal(decompressedModel.get('request'), request, 'The decompressed model maintains the original fragments');

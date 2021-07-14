@@ -46,12 +46,12 @@ module('Unit | Model | user', function (hooks) {
 
       Store.createRecord('report', {
         title: 'How I died! By Jon Snow',
-        author: user,
+        owner: user,
       });
 
       Store.createRecord('report', {
         title: 'You know nothing, Jon Snow',
-        author: user,
+        owner: user,
       });
 
       assert.equal(user.get('reports.length'), 2, 'Two reports are linked to the user');

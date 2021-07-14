@@ -85,7 +85,7 @@ module('Unit | Serializer | Report', function (hooks) {
           },
         },
         relationships: {
-          author: {
+          owner: {
             data: {
               id: 'navi_user',
               type: 'users',
@@ -183,7 +183,7 @@ module('Unit | Serializer | Report', function (hooks) {
           },
         },
         relationships: {
-          author: {
+          owner: {
             data: {
               id: 'navi_user',
               type: 'users',

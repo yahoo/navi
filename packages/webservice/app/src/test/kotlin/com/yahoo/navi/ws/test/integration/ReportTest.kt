@@ -18,9 +18,9 @@ class ReportTest : IntegrationTest() {
     private var testReqStrMF = String()
     private var expectedReqStr = String()
     private var visualStr = String()
-    private var author = { user: String ->
+    private var owner = { user: String ->
         """
-        |"author": {
+        |"owner": {
         |   "data": {
         |        "type": "users",
         |        "id": "$user"
@@ -152,7 +152,7 @@ class ReportTest : IntegrationTest() {
                             "visualization": $visualStr
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }
@@ -279,7 +279,7 @@ class ReportTest : IntegrationTest() {
                             "visualization": $visualStr
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }
@@ -353,7 +353,7 @@ class ReportTest : IntegrationTest() {
                             "visualization": $visualStr
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }
@@ -383,7 +383,7 @@ class ReportTest : IntegrationTest() {
 
     @Test
     fun wrongUser() {
-        // Post a report with different author
+        // Post a report with different owner
         given()
             .header("User", USER1)
             .contentType("application/vnd.api+json")
@@ -398,7 +398,7 @@ class ReportTest : IntegrationTest() {
                             "visualization": $visualStr
                         },
                         "relationships": {
-                            ${author(USER2)}
+                            ${owner(USER2)}
                         }
                     }
                 }
@@ -422,8 +422,8 @@ class ReportTest : IntegrationTest() {
     }
 
     @Test
-    fun differentAuthorPermissions() {
-        // Post a report with different author
+    fun differentOwnerPermissions() {
+        // Post a report with different owner
         given()
             .header("User", USER1)
             .contentType("application/vnd.api+json")
@@ -438,7 +438,7 @@ class ReportTest : IntegrationTest() {
                             "visualization": $visualStr
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }
@@ -498,7 +498,7 @@ class ReportTest : IntegrationTest() {
                             "visualization": $visualStr
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }
@@ -540,7 +540,7 @@ class ReportTest : IntegrationTest() {
                             "visualization": $visualStr
                         },
                         "relationships": {
-                            ${author(USER1)}
+                            ${owner(USER1)}
                         }
                     }
                 }
@@ -552,7 +552,7 @@ class ReportTest : IntegrationTest() {
             .assertThat()
             .statusCode(HttpStatus.SC_CREATED)
 
-        // non author should not update a report
+        // non owner should not update a report
         given()
             .header("User", USER2)
             .contentType("application/vnd.api+json")
@@ -575,7 +575,7 @@ class ReportTest : IntegrationTest() {
             .assertThat()
             .statusCode(HttpStatus.SC_FORBIDDEN)
 
-        // non author should not be able to delete report
+        // non owner should not be able to delete report
         given()
             .header("User", USER2)
             .When()
