@@ -1,5 +1,5 @@
 /**
- * Copyright 2020, Yahoo Holdings Inc.
+ * Copyright 2021, Yahoo Holdings Inc.
  * Licensed under the terms of the MIT license. See accompanying LICENSE.md file for terms.
  *
  * Description: The adapter for the bard-facts model.
@@ -200,9 +200,27 @@ export default class BardFactsAdapter extends EmberObject implements NaviFactAda
     const { namespace } = this;
     const table = request.logicalTable.table;
     const timeGrain = request.logicalTable.timeGrain;
-    const dimensions = this._buildDimensionsPath(request, options);
+    let dimensions = this._buildDimensionsPath(request, options);
+
+    if (request?.rollup?.columns?.length > 0 || request?.rollup?.grandTotal) {
+      dimensions = `${dimensions}/__rollupMask`;
+    }
 
     return `${host}/${namespace}/${table}/${timeGrain}${dimensions}/`;
+  }
+
+  /**
+   * Builds rollup query params
+   * @param {RequestV1} request
+   * @return {String}
+   */
+  _buildRollupParam(request: RequestV1) {
+    const dimensions = array(request?.rollup?.columns);
+    return dimensions.length
+      ? array(dimensions.mapBy('dimension'))
+          .uniq()
+          .join(',')
+      : '';
   }
 
   /**
@@ -227,6 +245,7 @@ export default class BardFactsAdapter extends EmberObject implements NaviFactAda
     const filters = this._buildFiltersParam(request);
     const having = this._buildHavingParam(request, aliasFunction);
     const sort = this._buildSortParam(request, aliasFunction);
+    const rollup = this._buildRollupParam(request);
 
     query.dateTime = this._buildDateTimeParam(request);
     query.metrics = this._buildMetricsParam(request);
@@ -241,6 +260,14 @@ export default class BardFactsAdapter extends EmberObject implements NaviFactAda
 
     if (sort) {
       query.sort = sort;
+    }
+
+    if (rollup) {
+      query.rollupTo = rollup;
+    }
+
+    if (request?.rollup?.grandTotal) {
+      query.rollupGrandTotal = true;
     }
 
     //default format

@@ -3,6 +3,7 @@ import { setupTest } from 'ember-qunit';
 import Pretender from 'pretender';
 import config from 'ember-get-config';
 import { assign } from '@ember/polyfills';
+import { cloneDeep } from 'lodash-es';
 
 const HOST = config.navi.dataSources[0].uri;
 const HOST2 = config.navi.dataSources[1].uri;
@@ -37,6 +38,9 @@ const TestRequest = {
       }
     ]
   },
+  TestRequestWithRollup = Object.assign(cloneDeep(TestRequest), {
+    rollup: { columns: [{ dimension: 'dateTime' }, { dimension: 'd3' }, { dimension: 'd5' }], grandTotal: true }
+  }),
   Response = {
     rows: [
       {
@@ -479,8 +483,24 @@ module('Unit | Bard facts Adapter', function(hooks) {
     );
   });
 
+  test('_buildRollupParam', function(assert) {
+    assert.expect(3);
+
+    assert.equal(Adapter._buildRollupParam({}), '', 'Returns empty string with no rollup property');
+
+    assert.equal(Adapter._buildRollupParam({ rollup: { columns: [] } }), '', 'Returns empty string with empty columns');
+
+    assert.equal(
+      Adapter._buildRollupParam({
+        rollup: { columns: [{ dimension: 'dateTime' }, { dimension: 'property' }, { dimension: 'userDeviceType' }] }
+      }),
+      'dateTime,property,userDeviceType',
+      'Returns dimension name in correct order comma separated'
+    );
+  });
+
   test('_buildURLPath', function(assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     assert.equal(
       Adapter._buildURLPath(TestRequest),
@@ -493,10 +513,16 @@ module('Unit | Bard facts Adapter', function(hooks) {
       `${HOST}/v1/data/table1/grain1/d1/d2/`,
       '_buildURLPath correctly built the URL path for the provided request when a host is configured'
     );
+
+    assert.equal(
+      Adapter._buildURLPath(TestRequestWithRollup),
+      `${HOST}/v1/data/table1/grain1/d1/d2/__rollupMask/`,
+      '_buildPath adds rollup mask dimension when rollups are requested'
+    );
   });
 
   test('_buildQuery', function(assert) {
-    assert.expect(7);
+    assert.expect(8);
 
     assert.deepEqual(
       Adapter._buildQuery(TestRequest),
@@ -591,6 +617,20 @@ module('Unit | Bard facts Adapter', function(hooks) {
       },
       '_buildQuery correctly built the query object for a request without caching'
     );
+
+    assert.deepEqual(
+      Adapter._buildQuery(TestRequestWithRollup),
+      {
+        dateTime: '2015-01-03/2015-01-04',
+        filters: 'd3|id-in["v1","v2"],d4|id-in["v3","v4"],d5|id-notnull[""]',
+        metrics: 'm1,m2,r(p=123)',
+        having: 'm1-gt[0]',
+        rollupTo: 'dateTime,d3,d5',
+        rollupGrandTotal: true,
+        format: 'json'
+      },
+      '_buildQuery adds correct rollup params'
+    );
   });
 
   test('_buildQuery with catchAll Query Params', function(assert) {
@@ -678,7 +718,7 @@ module('Unit | Bard facts Adapter', function(hooks) {
   });
 
   test('urlForFindQuery', function(assert) {
-    assert.expect(6);
+    assert.expect(7);
 
     assert.equal(
       decodeURIComponent(Adapter.urlForFindQuery(TestRequest)),
@@ -737,6 +777,13 @@ module('Unit | Bard facts Adapter', function(hooks) {
         'metrics=m1,m2,r(p=123)&filters=d3|id-in["v1","v2"],d4|id-in["v3","v4"],d5|id-notin[""]&having=m1-gt[0]&' +
         'format=json',
       'uriForFindQuery renders alternative host name if option is given'
+    );
+
+    assert.equal(
+      decodeURIComponent(Adapter.urlForFindQuery(TestRequestWithRollup)),
+      HOST +
+        '/v1/data/table1/grain1/d1/d2/__rollupMask/?dateTime=2015-01-03/2015-01-04&metrics=m1,m2,r(p=123)&filters=d3|id-in["v1","v2"],d4|id-in["v3","v4"],d5|id-notin[""]&having=m1-gt[0]&rollupTo=dateTime,d3,d5&rollupGrandTotal=true&format=json',
+      'Rollup query is correct'
     );
   });
 
