@@ -1395,6 +1395,54 @@ module('Acceptance | Navi Report | Column Config', function(hooks) {
     assert.notOk(apiURL.searchParams.has('sort'), 'Sort is removed from request when metric params changed');
   });
 
+  test('Rollup test', async function(assert) {
+    assert.expect(4);
+    const OG = config.navi.FEATURES.enableFiliTotals;
+    config.navi.FEATURES.enableFiliTotals = true;
+    await visit('/reports/1/view');
+    let apiURL = await getRequestURL();
+    assert.equal(
+      apiURL.href,
+      'https://data.naviapp.io/v1/data/network/day/property/?dateTime=2015-11-09%2000%3A00%3A00.000%2F2015-11-16%2000%3A00%3A00.000&metrics=adClicks%2CnavClicks&sort=navClicks%7Casc&format=json',
+      'Default query with no rollup'
+    );
+
+    await click('span[title="Date Time (Day)"');
+    await click('.navi-column-config-base__rollup-icon');
+
+    apiURL = await getRequestURL();
+    assert.equal(
+      apiURL.href,
+      'https://data.naviapp.io/v1/data/network/day/property/__rollupMask/?dateTime=2015-11-09%2000%3A00%3A00.000%2F2015-11-16%2000%3A00%3A00.000&metrics=adClicks%2CnavClicks&sort=navClicks%7Casc&rollupTo=dateTime&format=json',
+      'Datetime rollup added to query'
+    );
+
+    await click('span[title="Date Time (Day)"');
+    await click('span[title="Property"');
+    await click('.navi-column-config-base__rollup-icon');
+
+    apiURL = await getRequestURL();
+    assert.equal(
+      apiURL.href,
+      'https://data.naviapp.io/v1/data/network/day/property/__rollupMask/?dateTime=2015-11-09%2000%3A00%3A00.000%2F2015-11-16%2000%3A00%3A00.000&metrics=adClicks%2CnavClicks&sort=navClicks%7Casc&rollupTo=dateTime%2Cproperty&format=json',
+      'Property rollup added to query'
+    );
+
+    await click('.navi-column-config-base__rollup-icon');
+    await click('span[title="Property"');
+    await click('span[title="Date Time (Day)"');
+    await click('.navi-column-config-base__rollup-icon');
+
+    apiURL = await getRequestURL();
+    assert.equal(
+      apiURL.href,
+      'https://data.naviapp.io/v1/data/network/day/property/?dateTime=2015-11-09%2000%3A00%3A00.000%2F2015-11-16%2000%3A00%3A00.000&metrics=adClicks%2CnavClicks&sort=navClicks%7Casc&format=json',
+      'Rollup removed from query after toggling off both dimensions'
+    );
+
+    config.navi.FEATURES.enableFiliTotals = OG;
+  });
+
   function getColumns() {
     return findAll('.navi-column-config-item__name').map(el => el.textContent.trim());
   }

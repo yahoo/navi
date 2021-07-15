@@ -1,5 +1,5 @@
 /**
- * Copyright 2020, Yahoo Holdings Inc.
+ * Copyright 2021, Yahoo Holdings Inc.
  * Licensed under the terms of the MIT license. See accompanying LICENSE.md file for terms.
  *
  * Usage:
@@ -17,6 +17,8 @@
  *    @onToggleDimFilter={{update-report-action "TOGGLE_DIM_FILTER"}}
  *    @onToggleMetricFilter={{update-report-action "TOGGLE_METRIC_FILTER"}}
  *    @onToggleParameterizedMetricFilter={{update-report-action "TOGGLE_PARAMETERIZED_METRIC_FILTER"}}
+ *    @onPushRollup={{update-report-action "PUSH_ROLLUP_COLUMN"}}
+ *    @onRemoveRollup={{update-report-action "REMOVE_ROLLUP_COLUMN"}}
  *  />
  */
 import Component from '@ember/component';
@@ -35,7 +37,7 @@ class NaviColumnConfig extends Component {
    * @property {Object[]} columns - date time (if not all), dimension, and metric columns from the request
    */
   @computed(
-    'report.request.{metrics.@each.parameters,dimensions.[],filters.[],having.[],logicalTable.timeGrain}',
+    'report.request.{metrics.@each.parameters,dimensions.[],filters.[],having.[],logicalTable.timeGrain,rollup.columns.[]}',
     'report.visualization'
   )
   get columns() {
@@ -45,6 +47,7 @@ class NaviColumnConfig extends Component {
       dimensions,
       filters,
       having,
+      rollup,
       logicalTable: {
         timeGrain,
         table: { timeGrains }
@@ -53,6 +56,7 @@ class NaviColumnConfig extends Component {
     const timeGrainObject = timeGrains.find(grain => grain.id === timeGrain) || {};
 
     const filteredDimensions = filters.toArray().map(f => f.dimension.id);
+    const rollupDimensions = rollup?.columns.toArray().map(f => f.dimension?.id || f.dimension || f);
     const filteredMetrics = having.toArray().map(h => h.metric.canonicalName);
 
     const dimensionColumns = dimensions.toArray().map(dimension => {
@@ -62,6 +66,7 @@ class NaviColumnConfig extends Component {
         name,
         displayName: this.getDisplayName(dimension, 'dimension', visualization),
         isFiltered: filteredDimensions.includes(name),
+        isRollup: rollupDimensions.includes(name),
         isRemovable: true,
         fragment: dimension
       };
@@ -87,6 +92,7 @@ class NaviColumnConfig extends Component {
         name: 'dateTime',
         displayName: this.getDisplayName(timeGrainObject, 'timeDimension', visualization),
         isFiltered: true,
+        isRollup: rollupDimensions.includes('dateTime'),
         isRemovable: timeGrains.find(grain => grain.id === 'all') ? true : false,
         fragment: 'dateTime',
         timeGrain,
@@ -223,6 +229,20 @@ class NaviColumnConfig extends Component {
     const { type, fragment } = column;
     const removalHandler = this[`onRemove${capitalize(type)}`];
     removalHandler?.(fragment);
+  }
+
+  /**
+   * @action
+   * @param {Object} column
+   */
+  @action
+  toggleRollup(column) {
+    const fragment = column.fragment === 'dateTime' ? { dimension: column.fragment } : column.fragment.copy();
+    if (column.isRollup) {
+      this.onRemoveRollup(fragment);
+    } else {
+      this.onPushRollup(fragment);
+    }
   }
 
   /**

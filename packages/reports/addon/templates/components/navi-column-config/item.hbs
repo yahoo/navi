@@ -1,4 +1,4 @@
-{{!-- Copyright 2020, Yahoo Holdings Inc. Licensed under the terms of the MIT license. See accompanying LICENSE.md file for terms. --}}
+{{!-- Copyright 2021, Yahoo Holdings Inc. Licensed under the terms of the MIT license. See accompanying LICENSE.md file for terms. --}}
 <li
   class="navi-column-config-item navi-column-config-item--{{dasherize @column.type}} {{if @isOpen "navi-column-config-item--open"}}"
   data-name={{@column.name}}
@@ -37,6 +37,7 @@
       @metadata={{@visualization.metadata}}
       @cloneColumn={{@cloneColumn}}
       @toggleColumnFilter={{@toggleColumnFilter}}
+      @toggleRollup={{@toggleRollup}}
       @onUpdateColumnName={{this.updateColumnName}}
     />
   {{/if}}

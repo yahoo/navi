@@ -3,14 +3,16 @@ import { setupRenderingTest } from 'ember-qunit';
 import { helper as buildHelper } from '@ember/component/helper';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import config from 'ember-get-config';
 
 const TEMPLATE = hbs`
-<NaviColumnConfig::Base 
-  @column={{this.column}} 
+<NaviColumnConfig::Base
+  @column={{this.column}}
   @metadata={{this.metadata}}
   @cloneColumn={{this.cloneColumn}}
   @toggleColumnFilter={{this.toggleColumnFilter}}
   @onUpdateColumnName={{this.onUpdateColumnName}}
+  @toggleRollup={{this.toggleRollup}}
 />`;
 
 module('Integration | Component | navi-column-config/base', function(hooks) {
@@ -27,6 +29,7 @@ module('Integration | Component | navi-column-config/base', function(hooks) {
     this.cloneColumn = () => undefined;
     this.toggleColumnFilter = () => undefined;
     this.onUpdateColumnName = () => undefined;
+    this.toggleRollup = () => undefined;
   });
 
   test('it renders ', async function(assert) {
@@ -127,5 +130,34 @@ module('Integration | Component | navi-column-config/base', function(hooks) {
     assert
       .dom('.navi-column-config-base__filter-icon')
       .hasClass('navi-column-config-base__filter-icon--active', 'The filter is active when the column is filtered');
+  });
+
+  test('it renders rollup button', async function(assert) {
+    const OG = config.navi.FEATURES.enableFiliTotals;
+    config.navi.FEATURES.enableFiliTotals = true;
+
+    this.column = {
+      name: 'property',
+      type: 'dimension',
+      displayName: 'Property',
+      isFiltered: false,
+      isRollup: false,
+      fragment: { dimension: { name: 'Property' } }
+    };
+
+    this.toggleRollup = () => {
+      this.set('column.isRollup', !this.column.isRollup);
+    };
+
+    await render(TEMPLATE);
+
+    assert.dom('.navi-column-config-base__rollup-icon').exists('Rollup toggle button exists');
+    assert.dom('.navi-column-config-base__rollup-icon--active').doesNotExist('Rollup is not active on this column');
+
+    await click('.navi-column-config-base__rollup-icon');
+
+    assert.dom('.navi-column-config-base__rollup-icon--active').exists('Rollup is active when button is clicked');
+
+    config.navi.FEATURES.enableFiliTotals = OG;
   });
 });

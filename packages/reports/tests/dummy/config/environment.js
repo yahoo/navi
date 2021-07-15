@@ -48,7 +48,9 @@ module.exports = function(environment) {
         multipleExportFileTypes: ['pdf', 'png', 'gsheet'],
         enabledNotifyIfData: true,
         enableContains: true,
-        enableTableEditing: true
+        enableRequestPreview: false,
+        enableTableEditing: true,
+        enableFiliTotals: true
       }
     }
   };
