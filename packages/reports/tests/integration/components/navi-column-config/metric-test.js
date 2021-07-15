@@ -7,6 +7,7 @@ import { selectChoose } from 'ember-power-select/test-support/helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { assertTooltipContent } from 'ember-tooltips/test-support/dom';
+import config from 'ember-get-config';
 
 let MetadataService;
 
@@ -57,7 +58,8 @@ module('Integration | Component | navi-column-config/metric', function(hooks) {
       name: metricFragment.canonicalName,
       displayName: metric,
       fragment: metricFragment,
-      isFiltered: false
+      isFiltered: false,
+      isRollup: false
     };
   }
 
@@ -201,5 +203,18 @@ module('Integration | Component | navi-column-config/metric', function(hooks) {
     // await fillIn('.navi-column-config-base__column-name-input', 'Money');
 
     // await triggerKeyEvent('.navi-column-config-base__column-name-input', 'keyup', 13);
+  });
+
+  test('metrics do not render rollup button', async function(assert) {
+    const OG = config.navi.FEATURES.enableFiliTotals;
+    config.navi.FEATURES.enableFiliTotals = true;
+
+    this.column = await getMetricColumn('multipleParamMetric', {});
+
+    await render(TEMPLATE);
+
+    assert.dom('.navi-column-config-base__rollup-icon').doesNotExist('Rollup is not available on a metric column');
+
+    config.navi.FEATURES.enableFiliTotals = OG;
   });
 });
